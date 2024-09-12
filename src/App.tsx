@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
+import { useState } from 'react';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -14,6 +15,28 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 function App() {
+
+  const [specialty, setSpecialty] = useState('');
+  const [zipCode, setZipCode] = useState('');
+  const [isZipCodeValid, setIsZipCodeValid] = useState(false);
+
+  // Validar o CEP ( formato simples: 5 digitos + hífen + 3 digitos, ex:, 12345-678)
+  const zipCodePattern = /^[0-9]{5}-[0-9]{3}$/;
+
+  // Handle specialty input change
+  const handleSpecialtyChange = (e) => {
+    setSpecialty(e.target.value);
+  };
+
+  // Handle zip code input change
+  const handleZipCodeChange = (e) => {
+    const value = e.target.value;
+    setZipCode(value);
+    setIsZipCodeValid(zipCodePattern.test(value)); // Validate zip code format
+  };
+
+// Determine if the search button should be enabled
+const isSearchButtonEnabled = specialty !== '' && isZipCodeValid;
 
   return (
     <>
@@ -47,14 +70,20 @@ function App() {
             <TextField 
               id="specialty-input" 
               label="Especialidade" 
-              variant="filled"
+              variant="filled" 
+              value={specialty} 
+              onChange={handleSpecialtyChange}
               className="lg:w-1/3 md:w-1/2"
             />
             
             <TextField 
               id="zip-code-input" 
               label="CEP (Zip Code)" 
-              variant="filled"
+              variant="filled" 
+              value={zipCode} 
+              onChange={handleZipCodeChange}
+              error={!isZipCodeValid && zipCode !== ''}
+              helperText={!isZipCodeValid && zipCode !== '' ? 'CEP inválido' : ''}
               className="lg:w-1/3 md:w-1/2"
             />
           </form>
@@ -63,6 +92,7 @@ function App() {
             variant="contained" 
             endIcon={<SearchIcon />} 
             className="bg-blue-600 hover:bg-blue-700 text-white"
+            disabled={!isSearchButtonEnabled} // Disable the button if inputs are not valid
           >
             Pesquisar
           </Button>

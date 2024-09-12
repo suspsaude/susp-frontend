@@ -1,50 +1,28 @@
-# React + TypeScript + Vite
+# SUSP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Uma plataforma para auxiliar na busca por atendimento na rede pública de saúde
 
-Currently, two official plugins are available:
+## Ambiente de Desenvolvimento
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Nosso ambiente de desenvolvimento possui:
 
-## Expanding the ESLint configuration
+- Node.js: 22
+- Yarn: 1.22
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Instale ambos e execute `yarn install` na raíz do projeto para instalar todas dependências e use `yarn dev` para iniciar o servidor de desenvolvimento.
 
-- Configure the top-level `parserOptions` property like this:
+## Padrões de Projeto
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Desenvolvimento
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Usamos duas _branches_ principais: `main` e `dev`. Na `main` teremos apenas versões estáveis da plataforma, na `dev` teremos sempre a versão mais atualizada do projeto com os PR mais recentes.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Novas contribuições devem ser feitas sempre criando novas _branches_ a partir da `dev` e finalizadas com um PR para a `dev`. 
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Branches e Commits
+
+Vamos usar os padrões dos [_conventional commits_](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13).
+
+Para nome de _branches_ vamos usar `kebab-case` iniciando com um tipo dos _conventional commits_.
+
+Para _commits_, _branches_ e código em geral vamos dar preferência pela língua inglesa.

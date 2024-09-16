@@ -7,12 +7,12 @@ import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 function ToolBar(){
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" className="bg-blue-600 shadow-lg">
-                <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <AppBar>
+                <Toolbar sx={{justifyContent: 'space-between' }}>
                     <LocalHospitalIcon fontSize="large"/>
-                    <Box sx={{ display: 'flex', gap: 2 }}>
-                        <Button color="inherit" className="text-white hover:bg-blue-500">Início</Button>
-                        <Button color="inherit" className="text-white hover:bg-blue-500">Contato</Button>
+                    <Box>
+                        <Button sx={{color:'#f5f5f5'}}>Início</Button>
+                        <Button sx={{color:'#f5f5f5'}}>Contato</Button>
                     </Box>
                 </Toolbar>
             </AppBar>

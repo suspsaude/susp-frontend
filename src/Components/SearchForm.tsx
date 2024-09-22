@@ -1,5 +1,5 @@
-// Components/SearchForm.tsx
 import TextField from '@mui/material/TextField';
+import AutocompleteBar from './AutocompleteBar';
 
 interface SearchFormProps {
   specialty: string;
@@ -9,28 +9,27 @@ interface SearchFormProps {
   isZipCodeValid: boolean;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({ specialty, zipCode, onSpecialtyChange, onZipCodeChange, isZipCodeValid }) => {
+const SearchForm: React.FC<SearchFormProps> = ({ 
+  specialty, zipCode, onSpecialtyChange, onZipCodeChange, isZipCodeValid 
+}) => {
   return (
-    <form className="flex flex-col space-y-4 justify-center md:flex-row md:space-y-0 md:space-x-4">
-      <TextField 
-        id="specialty-input" 
-        label="Especialidade" 
-        variant="filled" 
-        value={specialty} 
-        onChange={(e) => onSpecialtyChange(e.target.value)}
-        className="lg:w-1/3 md:w-1/2"
-      />
+    <form className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl mx-auto items-start">
+      <AutocompleteBar
+        specialty={specialty}
+        onSpecialtyChange={onSpecialtyChange}
+       />
       
       <TextField 
         id="zip-code-input" 
-        label="CEP (Zip Code)" 
+        label="CEP" 
         variant="filled" 
         value={zipCode} 
         onChange={(e) => onZipCodeChange(e.target.value)}
         error={!isZipCodeValid && zipCode !== ''}
         helperText={!isZipCodeValid && zipCode !== '' ? 'CEP inválido' : ''}
-        className="lg:w-1/3 md:w-1/2"
+        fullWidth      
       />
+
     </form>
   );
 };

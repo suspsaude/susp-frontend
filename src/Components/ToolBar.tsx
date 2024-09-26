@@ -3,6 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import { Link } from 'react-router-dom';
 
 function ToolBar(){
     return (
@@ -11,8 +12,7 @@ function ToolBar(){
                 <Toolbar sx={{justifyContent: 'space-between' }}>
                     <LocalHospitalIcon fontSize="large"/>
                     <Box>
-                        <Button sx={{color:'#f5f5f5'}}>Início</Button>
-                        <Button sx={{color:'#f5f5f5'}}>Contato</Button>
+                        <Link to="/"><Button sx={{color:'#f5f5f5'}}>Início</Button></Link>
                     </Box>
                 </Toolbar>
             </AppBar>

@@ -8,7 +8,7 @@ interface UBSCardProps {
 
 const UBSCard: React.FC<UBSCardProps> = ({ name, address}) => {
   return (
-    <Card sx={{width: '100%', margin: '10px', boxShadow: 3, borderRadius: "12px"}}>
+    <Card sx={{width: '100%', boxShadow: 3, borderRadius: "12px"}}>
         <CardContent>
             <Typography sx={{fontWeight: "bold"}} variant="h5" component="div">
             {name}

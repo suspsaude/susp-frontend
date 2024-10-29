@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import UBSCard from '../Components/UBSCard';
 import ToolBar from '../Components/ToolBar';
 import Container from '@mui/material/Container';
@@ -6,29 +6,25 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useTheme, useMediaQuery, Grid2, Pagination, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 
+import { useLocation } from 'react-router-dom';
+
 const ListaDeUnidades: React.FC = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  const facilities = [
-    { name: 'Unidade Básica de Saúde Vila Gomes', address: 'Rua Corinto, 123, Vila Gomes', type: "Consultório", rating: 4, distance: 3.2, professionals: 15 },
-    { name: 'Centro de Saúde São Remo', address: 'Rua Professor Ariovaldo Silveira Franco, 456, São Remo', type: "Policlínica", rating: 3, distance: 5.4, professionals: 10 },
-    { name: 'Pronto Socorro Jardim Bonfiglioli', address: 'Avenida Nossa Senhora da Assunção, 789, Jardim Bonfiglioli', type: "Consultório", rating: 5, distance: 1.8, professionals: 25 },
-    { name: 'UPA Vila Butantã', address: 'Avenida Corifeu de Azevedo Marques, 234, Vila Butantã', type: "Consultório", rating: 4, distance: 2.3, professionals: 12 },
-    { name: 'Posto de Saúde Rio Pequeno', address: 'Rua Domingos Jorge, 567, Rio Pequeno', type:"Consultório", rating: 2, distance: 4.9, professionals: 8 },
-    { name: 'Hospital Universitário da USP', address: 'Avenida Prof. Lineu Prestes, 890, Butantã', type: "Policlínica", rating: 5, distance: 2.0, professionals: 30 },
-    { name: 'Clínica de Saúde Butantã', address: 'Rua Alvarenga, 1010, Butantã', type: "Centro de Saúde/Unidade Básica", rating: 3, distance: 1.2, professionals: 18 },
-    { name: 'UBS Jardim Rolinópolis', address: 'Rua MMDC, 1234, Jardim Rolinópolis', type: "Consultório", rating: 4, distance: 3.5, professionals: 20 },
-    { name: 'Centro de Saúde Jardim São Jorge', address: 'Rua Sapetuba, 678, Jardim São Jorge', type: "Centro de Saúde/Unidade Básica", rating: 5, distance: 5.7, professionals: 15 },
-    { name: 'Unidade de Saúde Vila Indiana', address: 'Rua Iquiririm, 345, Vila Indiana', type: "Clínica/Centro de especialidade", rating: 3, distance: 2.1, professionals: 10 },
-    { name: 'UBS Jardim D’Abril', address: 'Rua José Joaquim Seabra, 789, Jardim D’Abril', type: "Centro de Saúde/Unidade Básica", rating: 2, distance: 4.2, professionals: 6 },
-  ];
-
   const facilitiesPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedType, setSelectedType] = useState<string | ''>('');
   const [sortCriteria, setSortCriteria] = useState<string | ''>('distance');
+
+
+  const [facilities, setFacilities] = useState([]);
+
+  const location = useLocation();
+  const {zipCode, specialty} = location.state || {};
+
+ 
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
@@ -41,6 +37,34 @@ const ListaDeUnidades: React.FC = () => {
   const handleSortChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setSortCriteria(event.target.value as string);
   };
+
+  const fetchFacilities = async (cep: string, esp: string) => {
+    try {
+      
+      const response = await fetch (`http://localhost:8000/unidades?cep=${cep}&esp=${esp}`);
+      
+      if (!response.ok) {
+        throw new Error("Erro ao buscar unidades de saúde");
+      }
+
+      const data = await response.json();
+      setFacilities(data);
+    } catch (error) {
+      if (error instanceof TypeError) {
+        console.log("Erro de rede ou falha de conexão: ", error.message);
+      } else if (error instanceof SyntaxError) {
+        console.log("Erro ao processar dados JSON: ", error.message);
+      } else {
+        console.log("Erro inesperado: ", error.message);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (zipCode && specialty) {
+      fetchFacilities(zipCode, specialty);
+    }
+  }, [zipCode, specialty]);
 
   const filteredFacilities = facilities.filter(facility => {
     return (
@@ -89,6 +113,7 @@ const ListaDeUnidades: React.FC = () => {
                   <MenuItem value="Policlínica">Policlínica</MenuItem>
                   <MenuItem value="Pronto Socorro">Pronto Socorro</MenuItem>
                 </Select>
+                
               </FormControl>
             </Grid2>
 

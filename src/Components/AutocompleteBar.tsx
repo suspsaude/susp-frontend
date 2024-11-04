@@ -46,7 +46,6 @@ const AutocompleteBar: React.FC<AutocompleteBarProps> = ({
             
             value={specialty}
             onChange={(event, newValue) => {
-                console.log(newValue?.id)
                 onSpecialtyChange(newValue ? newValue.label: "", newValue? newValue.id : null);
             }}
 

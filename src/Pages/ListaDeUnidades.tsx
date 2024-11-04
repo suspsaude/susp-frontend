@@ -52,7 +52,6 @@ const ListaDeUnidades: React.FC = () => {
       }
       
       const data = await response.json();
-      console.log(data)
       setFacilities(data);
 
       const types = Array.from(new Set(data.map((facility: any) => facility.type)))

@@ -33,8 +33,6 @@ const HomePage: React.FC = () => {
 
   const handleSearchClick = async() => {
     if (isSearchButtonEnabled) {
-      console.log("Testando se o ID chega aqui");
-      console.log(specialtyId);
       navigate('/lista', {state: {zipCode, specialtyId}});
     }
   }

@@ -18,7 +18,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
   const handleSpecialtyChange = (value: string, id: number[] | null) => {
     onSpecialtyChange(value, id);
     setSpecialtyId(id);
-    console.log("ID da especialidade selecionada: ", id);
   }
   
   return (

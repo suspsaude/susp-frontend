@@ -9,7 +9,8 @@ import { useTheme, useMediaQuery } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage: React.FC = () => {
-  const [specialty, setSpecialty] = useState<string>('');
+  const [specialty, setSpecialty ] = useState<string>('');
+  const [specialtyId, setSpecialtyId] = useState<number[] | null>(null);
   const [zipCode, setZipCode] = useState<string>('');
   const [isZipCodeValid, setIsZipCodeValid] = useState<boolean>(false);
   
@@ -17,8 +18,9 @@ const HomePage: React.FC = () => {
 
   const navigate = useNavigate();
   
-  const handleSpecialtyChange = (value: string) => {
+  const handleSpecialtyChange = (value: string, id: number[] | null) => {
     setSpecialty(value);
+    setSpecialtyId(id);
   };
 
   const handleZipCodeChange = (value: string) => {
@@ -31,7 +33,9 @@ const HomePage: React.FC = () => {
 
   const handleSearchClick = async() => {
     if (isSearchButtonEnabled) {
-      navigate('/lista', {state: {zipCode, specialty}});
+      console.log("Testando se o ID chega aqui");
+      console.log(specialtyId);
+      navigate('/lista', {state: {zipCode, specialtyId}});
     }
   }
 

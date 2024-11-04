@@ -20,9 +20,10 @@ const ListaDeUnidades: React.FC = () => {
 
 
   const [facilities, setFacilities] = useState([]);
+  const [facilityTypes, setFacilityType] = useState<string[]>([]);
 
   const location = useLocation();
-  const {zipCode, specialty} = location.state || {};
+  const { zipCode, specialty, specialtyId } = location.state || {};
 
  
 
@@ -38,17 +39,25 @@ const ListaDeUnidades: React.FC = () => {
     setSortCriteria(event.target.value as string);
   };
 
-  const fetchFacilities = async (cep: string, esp: string) => {
+  const fetchFacilities = async (cep: string, specialtyId: number[] | null) => {
+
     try {
-      
-      const response = await fetch (`http://localhost:8000/unidades?cep=${cep}&esp=${esp}`);
+      const servico = specialtyId[0];
+      const classificacao = specialtyId[1];
+
+      const response = await fetch (` http://0.0.0.0:8000/unidades?cep=${cep}&srv=${servico}&clf=${classificacao}`);
       
       if (!response.ok) {
         throw new Error("Erro ao buscar unidades de saúde");
       }
-
+      
       const data = await response.json();
+      console.log(data)
       setFacilities(data);
+
+      const types = Array.from(new Set(data.map((facility: any) => facility.type)))
+      setFacilityType(types);
+
     } catch (error) {
       if (error instanceof TypeError) {
         console.log("Erro de rede ou falha de conexão: ", error.message);
@@ -61,10 +70,13 @@ const ListaDeUnidades: React.FC = () => {
   };
 
   useEffect(() => {
-    if (zipCode && specialty) {
-      fetchFacilities(zipCode, specialty);
+
+    if (zipCode && specialtyId) {
+      
+
+      fetchFacilities(zipCode, specialtyId);
     }
-  }, [zipCode, specialty]);
+  }, [zipCode, specialtyId]);
 
   const filteredFacilities = facilities.filter(facility => {
     return (
@@ -107,11 +119,9 @@ const ListaDeUnidades: React.FC = () => {
                 <InputLabel>Tipo de Estabelecimento</InputLabel>
                 <Select value={selectedType} onChange={handleTypeChange} label="Tipo de Estabelecimento">
                   <MenuItem value=""><em>Todos</em></MenuItem>
-                  <MenuItem value="Consultório">Consultório</MenuItem>
-                  <MenuItem value="Clínica/Centro de especialidade">Clínica/Centro de especialidade</MenuItem>
-                  <MenuItem value="Centro de Saúde/Unidade Básica">Centro de Saúde/Unidade Básica</MenuItem>
-                  <MenuItem value="Policlínica">Policlínica</MenuItem>
-                  <MenuItem value="Pronto Socorro">Pronto Socorro</MenuItem>
+                  {facilityTypes.map((type, index)=>(
+                    <MenuItem key={index} value={type}>{type}</MenuItem>
+                  ))}
                 </Select>
                 
               </FormControl>
@@ -135,6 +145,7 @@ const ListaDeUnidades: React.FC = () => {
                   <UBSCard
                     name={facility.name}
                     address={facility.address}
+                    distance={facility.distance}
                   />
                 </Grid2>
               ))

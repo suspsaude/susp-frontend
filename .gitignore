@@ -1,3 +1,5 @@
 node_modules/
 .mise.local.toml
 yarn.lock
+apagar.tsx
+apagar.txt

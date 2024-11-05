@@ -6,16 +6,21 @@ import Typography from '@mui/material/Typography';
 import SearchForm from '../Components/SearchForm';
 import SearchButton from '../Components/SearchButton';
 import { useTheme, useMediaQuery } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage: React.FC = () => {
-  const [specialty, setSpecialty] = useState<string>('');
+  const [specialty, setSpecialty ] = useState<string>('');
+  const [specialtyId, setSpecialtyId] = useState<number[] | null>(null);
   const [zipCode, setZipCode] = useState<string>('');
   const [isZipCodeValid, setIsZipCodeValid] = useState<boolean>(false);
   
   const zipCodePattern = /^[0-9]{5}-[0-9]{3}$/;
+
+  const navigate = useNavigate();
   
-  const handleSpecialtyChange = (value: string) => {
+  const handleSpecialtyChange = (value: string, id: number[] | null) => {
     setSpecialty(value);
+    setSpecialtyId(id);
   };
 
   const handleZipCodeChange = (value: string) => {
@@ -23,10 +28,18 @@ const HomePage: React.FC = () => {
     setIsZipCodeValid(zipCodePattern.test(value));
   };
 
+
   const isSearchButtonEnabled = specialty !== '' && isZipCodeValid;
+
+  const handleSearchClick = async() => {
+    if (isSearchButtonEnabled) {
+      navigate('/lista', {state: {zipCode, specialtyId}});
+    }
+  }
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
 
   return (
     <>
@@ -47,7 +60,7 @@ const HomePage: React.FC = () => {
             onZipCodeChange={handleZipCodeChange} 
             isZipCodeValid={isZipCodeValid} 
           />
-          <SearchButton isSearchButtonEnabled={isSearchButtonEnabled} />
+          <SearchButton isSearchButtonEnabled={isSearchButtonEnabled} onClick={handleSearchClick} />
         </Box>
       </Container>
     </>

@@ -1,10 +1,11 @@
 import TextField from '@mui/material/TextField';
 import AutocompleteBar from './AutocompleteBar';
+import { useState } from 'react';
 
 interface SearchFormProps {
   specialty: string;
   zipCode: string;
-  onSpecialtyChange: (value: string) => void;
+  onSpecialtyChange: (value: string, id:number[] | null) => void;
   onZipCodeChange: (value: string) => void;
   isZipCodeValid: boolean;
 }
@@ -12,11 +13,18 @@ interface SearchFormProps {
 const SearchForm: React.FC<SearchFormProps> = ({ 
   specialty, zipCode, onSpecialtyChange, onZipCodeChange, isZipCodeValid 
 }) => {
+  const [specialtyId, setSpecialtyId] = useState<number[] | null>(null);
+  
+  const handleSpecialtyChange = (value: string, id: number[] | null) => {
+    onSpecialtyChange(value, id);
+    setSpecialtyId(id);
+  }
+  
   return (
     <form className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl mx-auto items-start">
       <AutocompleteBar
         specialty={specialty}
-        onSpecialtyChange={onSpecialtyChange}
+        onSpecialtyChange={handleSpecialtyChange}
        />
       
       <TextField 

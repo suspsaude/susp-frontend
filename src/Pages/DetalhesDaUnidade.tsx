@@ -2,7 +2,7 @@ import ToolBar from '../Components/ToolBar';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { useTheme, useMediaQuery} from '@mui/material';
+import { useTheme, useMediaQuery, Grid2} from '@mui/material';
 import MapComponent from '../Components/MapComponent';
 
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -22,15 +22,24 @@ const ListaDeUnidades: React.FC = () => {
         <>
         <ToolBar />
 
-        <Container sx={{ paddingTop: '7rem' }}>
-            <Box className="space-y-6 p-6" sx={{paddingX: isMediumScreen ? 4 : 40 }}>
-
+        <Container sx={{ paddingTop: '7rem', paddingBottom: '3rem' }}>
+            <Box className="space-y-6" sx={{paddingX: isMediumScreen ? 4 : 15 }}>
                 <Typography
                     variant={isSmallScreen ? 'h4' : 'h3'}
                     sx={{ textAlign: 'center', fontWeight: 'bold', color: '#424242' }}
                 >
                     Unidade Básica de Saúde da Vila Gomes
                 </Typography>
+
+            <Grid2 container spacing={2} justifyContent="center">
+                <Grid2 size = {{xs: 12, sm: 4, md: 6}}>
+                    {/* Map component */}
+                    <Box sx={{ marginTop: '1rem' }}>
+                        <MapComponent />
+                    </Box>
+                </Grid2>
+
+                <Grid2 size = {{xs: 12, sm: 6, md: 6}}>
                 {/* Contact Info */}
                 <InfoCard
                     icon={<PhoneIcon fontSize="large" sx={{ color: '#4285f4' }} />}
@@ -38,12 +47,6 @@ const ListaDeUnidades: React.FC = () => {
                     details="+55 (11) 98765-4321"
                 />
 
-                {/* Map component */}
-                <Box sx={{ marginTop: '2rem' }}>
-                    <MapComponent />
-                </Box>
-
-                
                 {/* Rating */}
                 <InfoCard
                     icon={<StarIcon fontSize="large" sx={{ color: '#4285f4' }} />}
@@ -64,6 +67,8 @@ const ListaDeUnidades: React.FC = () => {
                     title="Corpo Médico"
                     details="10 Médicos, 5 Enfermeiros"
                 />
+                </Grid2>
+            </Grid2>
 
             </Box>
         </Container>

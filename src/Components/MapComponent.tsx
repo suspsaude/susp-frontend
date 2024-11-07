@@ -21,7 +21,7 @@ const MapComponent: React.FC = () => {
     <MapContainer
       center={[-23.561684, -46.625378]} 
       zoom={13} 
-      style={{ height: '350px', width: '100%' }}
+      style={{ height: '360px', width: '100%' }}
     >
       {/* Minimalist CartoDB Positron tiles */}
       <TileLayer

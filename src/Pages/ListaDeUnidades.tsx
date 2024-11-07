@@ -7,13 +7,14 @@ import Typography from '@mui/material/Typography';
 import { useTheme, useMediaQuery, Grid2, Pagination, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ListaDeUnidades: React.FC = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  const facilitiesPerPage = 5;
+  const facilitiesPerPage = 3;
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedType, setSelectedType] = useState<string | ''>('');
   const [sortCriteria, setSortCriteria] = useState<string | ''>('distance');
@@ -24,6 +25,13 @@ const ListaDeUnidades: React.FC = () => {
 
   const location = useLocation();
   const { zipCode, specialty, specialtyId } = location.state || {};
+
+  const navigate = useNavigate();
+
+  const handleDetailsClick = async() => {
+    navigate('/detalhes');
+    
+  };
 
  
 
@@ -145,6 +153,7 @@ const ListaDeUnidades: React.FC = () => {
                     name={facility.name}
                     address={facility.address}
                     distance={facility.distance}
+                    onDetailsClick={handleDetailsClick}
                   />
                 </Grid2>
               ))

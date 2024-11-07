@@ -6,9 +6,10 @@ interface UBSCardProps {
   address: string;
   type: string;
   distance: number;
+  onDetailsClick: () => void; 
 }
 
-const UBSCard: React.FC<UBSCardProps> = ({ name, address, distance}) => {
+const UBSCard: React.FC<UBSCardProps> = ({ name, address, distance, onDetailsClick}) => {
   return (
     <Card sx={{width: '100%', boxShadow: 3, borderRadius: "12px"}}>
         <CardContent>
@@ -26,7 +27,7 @@ const UBSCard: React.FC<UBSCardProps> = ({ name, address, distance}) => {
         </CardContent>
 
         <CardActions>
-            <Button>Mais Detalhes</Button>
+            <Button onClick={onDetailsClick}>Mais Detalhes</Button>
         </CardActions>
     
     </Card>

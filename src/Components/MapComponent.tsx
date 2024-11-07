@@ -7,7 +7,12 @@ import { useEffect } from 'react';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
-const MapComponent: React.FC = () => {
+interface MapProps {
+  latitude: number;
+  longitude: number;
+}
+
+const MapComponent: React.FC<MapProps> = ({latitude, longitude}) => {
 
   useEffect(() => {
     delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -19,7 +24,7 @@ const MapComponent: React.FC = () => {
 
   return (
     <MapContainer
-      center={[-23.561684, -46.625378]} 
+      center={[latitude, longitude]} 
       zoom={13} 
       style={{ height: '360px', width: '100%' }}
     >
@@ -27,7 +32,7 @@ const MapComponent: React.FC = () => {
       <TileLayer
         url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
       />
-      <Marker position={[-23.561684, -46.625378]}>
+      <Marker position={[latitude, longitude]}>
         <Popup>
           Unidade Básica de Saúde da Vila Gomes
         </Popup>

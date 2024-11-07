@@ -8,6 +8,7 @@ import { useTheme, useMediaQuery, Grid2, Pagination, MenuItem, Select, InputLabe
 
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { SERVER_HOST } from '../constants';
 
 const ListaDeUnidades: React.FC = () => {
   const theme = useTheme();
@@ -53,7 +54,7 @@ const ListaDeUnidades: React.FC = () => {
       const servico = specialtyId[0];
       const classificacao = specialtyId[1];
 
-      const response = await fetch (` http://0.0.0.0:8000/unidades?cep=${cep}&srv=${servico}&clf=${classificacao}`);
+      const response = await fetch (`${SERVER_HOST}/unidades?cep=${cep}&srv=${servico}&clf=${classificacao}`);
       
       if (!response.ok) {
         throw new Error("Erro ao buscar unidades de saúde");

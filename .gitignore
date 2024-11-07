@@ -1,4 +1,5 @@
 node_modules/
+coverage/
 .mise.local.toml
 yarn.lock
 apagar.tsx

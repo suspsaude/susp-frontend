@@ -28,9 +28,8 @@ const ListaDeUnidades: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const handleDetailsClick = async() => {
-    navigate('/detalhes');
-    
+  const handleDetailsClick = (cnesNumber: string) => {
+    navigate('/detalhes', {state:{cnesNumber}});
   };
 
  
@@ -153,7 +152,7 @@ const ListaDeUnidades: React.FC = () => {
                     name={facility.name}
                     address={facility.address}
                     distance={facility.distance}
-                    onDetailsClick={handleDetailsClick}
+                    onDetailsClick={() => handleDetailsClick(facility.cnes)}
                   />
                 </Grid2>
               ))

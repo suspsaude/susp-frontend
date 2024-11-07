@@ -9,7 +9,7 @@ interface Specialty {
 }
 
 interface AutocompleteBarProps {
-    specialty: string;
+    specialty: Specialty;
     onSpecialtyChange: (value: string, id: number[] | null) => void;
 }
 

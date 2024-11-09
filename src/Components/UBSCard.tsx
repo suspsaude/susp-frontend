@@ -1,10 +1,9 @@
 import React from 'react';
-import { Card, CardContent, Typography, CardActions, Button, Box } from '@mui/material';
+import { Card, CardContent, Typography, CardActions, Button} from '@mui/material';
 
 interface UBSCardProps {
   name: string;
   address: string;
-  type: string;
   distance: number;
   onDetailsClick: () => void; 
 }

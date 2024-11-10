@@ -13,6 +13,8 @@ import InfoCard from '../Components/InfoCard';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+
 const ListaDeUnidades: React.FC = () => {
 
     const theme = useTheme();
@@ -23,6 +25,8 @@ const ListaDeUnidades: React.FC = () => {
     const {cnesNumber} = location.state || {};
 
     const [facilityDetails, setFacilityDetais] =  useState<{ name: string }>({ name: '' });
+
+    const [facilityAddress, setFacilityAddress] = useState<string>('');
     
     const fetchFacitilyDetails = async () => {
         try {
@@ -34,7 +38,11 @@ const ListaDeUnidades: React.FC = () => {
 
             const data = await response.json();
 
+            console.log(data.cnes)
+            console.log(data.services)
+            
             setFacilityDetais(data);
+            callSetFacilityAddress();
 
         } catch(error) {
             if (error instanceof TypeError) {
@@ -45,6 +53,12 @@ const ListaDeUnidades: React.FC = () => {
                 console.log("Erro inesperado: ", error.message);
               }
         }
+    }
+
+    const callSetFacilityAddress = async () => {
+        const fullAddress = facilityDetails.address + ", " + facilityDetails.number + ", " + facilityDetails.district + ", " + facilityDetails.cep;
+        setFacilityAddress(fullAddress);
+
     }
 
     useEffect(() => {
@@ -81,6 +95,14 @@ const ListaDeUnidades: React.FC = () => {
                 </Grid2>
 
                 <Grid2 size = {{xs: 12, sm: 6, md: 6}}>
+
+                {/* Address Info */}
+                <InfoCard
+                    icon={<LocalHospitalIcon fontSize="large" sx={{ color: '#4285f4' }} />}
+                    title="Endereço"
+                    details={facilityAddress}
+                />
+
                 {/* Contact Info */}
                 <InfoCard
                     icon={<PhoneIcon fontSize="large" sx={{ color: '#4285f4' }} />}
@@ -94,6 +116,10 @@ const ListaDeUnidades: React.FC = () => {
                     title="Horário de Funcionamento"
                     details={facilityDetails.shift}
                 />
+
+ 
+
+                {/* <p>{facilityDetails.services}</p> */}
 
                 </Grid2>
             </Grid2>

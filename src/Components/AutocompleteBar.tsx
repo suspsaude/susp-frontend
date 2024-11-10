@@ -9,7 +9,7 @@ interface Specialty {
 }
 
 interface AutocompleteBarProps {
-    specialty: Specialty;
+    specialty: string;
     onSpecialtyChange: (value: string, id: number[] | null) => void;
 }
 
@@ -44,7 +44,6 @@ const AutocompleteBar: React.FC<AutocompleteBarProps> = ({
         <Autocomplete
             disablePortal
             
-            value={specialty}
             onChange={(event, newValue) => {
                 onSpecialtyChange(newValue ? newValue.label: "", newValue? newValue.id : null);
             }}

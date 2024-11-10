@@ -65,6 +65,8 @@ const ListaDeUnidades: React.FC = () => {
     });
 
     const [facilityAddress, setFacilityAddress] = useState<string>('');
+
+    const [facilityContactInfo, setFacitilyContactInfo] = useState<string>('');
     
     const fetchFacitilyDetails = async () => {
         try {
@@ -75,9 +77,6 @@ const ListaDeUnidades: React.FC = () => {
             }
 
             const data = await response.json();
-
-            console.log(data.cnes)
-            console.log(data.services)
             
             setFacilityDetais(data);
             
@@ -93,10 +92,15 @@ const ListaDeUnidades: React.FC = () => {
         }
     }
 
-    const callSetFacilityAddress = async () => {
+    const setFullAddress = async () => {
         const fullAddress = facilityDetails.address + ", " + facilityDetails.number + ", " + facilityDetails.district + ", " + facilityDetails.cep;
         setFacilityAddress(fullAddress);
 
+    }
+
+    const setFullContactInfo = async() => {
+        const contactInfo = " Número: " + facilityDetails.telephone + " || Email: " + facilityDetails.email
+        setFacitilyContactInfo(contactInfo);
     }
 
     useEffect(() => {
@@ -105,9 +109,17 @@ const ListaDeUnidades: React.FC = () => {
 
     useEffect(() => {
         if (facilityDetails.address) {
-            callSetFacilityAddress(); // Atualizar endereço sempre que facilityDetails mudar
+            setFullAddress(); // Atualizar endereço sempre que facilityDetails mudar
         }
     }, [facilityDetails]);
+
+    useEffect(() =>{
+        if (facilityDetails.telephone) {
+            setFullContactInfo();
+        }
+    })
+
+
 
 
     return (
@@ -125,6 +137,7 @@ const ListaDeUnidades: React.FC = () => {
 
             <Grid2 container spacing={2} justifyContent="center">
                 <Grid2 size = {{xs: 12, sm: 4, md: 6}}>
+
                     {/* Map component */}
                     <Box sx={{ marginTop: '1rem' }}>
                         {facilityDetails.latitude && facilityDetails.longitude ? (
@@ -151,7 +164,7 @@ const ListaDeUnidades: React.FC = () => {
                 <InfoCard
                     icon={<PhoneIcon fontSize="large" sx={{ color: '#4285f4' }} />}
                     title="Contato"
-                    details={facilityDetails.telephone}
+                    details={facilityContactInfo}
                 />
 
                 {/* Operating Hours */}

@@ -15,6 +15,27 @@ import { useLocation } from 'react-router-dom';
 
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 
+interface FacilityDetails {
+    cnes: number;
+    name: string;
+    city: string;
+    state: string;
+    kind: string;
+    cep: string;
+    cnpj: string;
+    address: string;
+    number: string;
+    district: string;
+    telephone: string;
+    latitude: number;
+    longitude: number;
+    email: string;
+    shift: string;
+    services: {
+        [key: string]: string[]; // Representa os serviços como um objeto onde a chave é uma string e o valor é um array de strings
+    };
+}
+
 const ListaDeUnidades: React.FC = () => {
 
     const theme = useTheme();
@@ -24,7 +45,24 @@ const ListaDeUnidades: React.FC = () => {
     const location = useLocation();
     const {cnesNumber} = location.state || {};
 
-    const [facilityDetails, setFacilityDetais] =  useState<{ name: string }>({ name: '' });
+    const [facilityDetails, setFacilityDetais] = useState<FacilityDetails>({
+        cnes: 0,
+        name: '',
+        city: '',
+        state: '',
+        kind: '',
+        cep: '',
+        cnpj: '',
+        address: '',
+        number: '',
+        district: '',
+        telephone: '',
+        latitude: 0,
+        longitude: 0,
+        email: '',
+        shift: '',
+        services: {},
+    });
 
     const [facilityAddress, setFacilityAddress] = useState<string>('');
     
@@ -42,7 +80,7 @@ const ListaDeUnidades: React.FC = () => {
             console.log(data.services)
             
             setFacilityDetais(data);
-            callSetFacilityAddress();
+            
 
         } catch(error) {
             if (error instanceof TypeError) {
@@ -64,6 +102,12 @@ const ListaDeUnidades: React.FC = () => {
     useEffect(() => {
         fetchFacitilyDetails();
     }, []);
+
+    useEffect(() => {
+        if (facilityDetails.address) {
+            callSetFacilityAddress(); // Atualizar endereço sempre que facilityDetails mudar
+        }
+    }, [facilityDetails]);
 
 
     return (
@@ -116,10 +160,6 @@ const ListaDeUnidades: React.FC = () => {
                     title="Horário de Funcionamento"
                     details={facilityDetails.shift}
                 />
-
- 
-
-                {/* <p>{facilityDetails.services}</p> */}
 
                 </Grid2>
             </Grid2>

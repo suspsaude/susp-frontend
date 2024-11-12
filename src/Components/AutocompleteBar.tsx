@@ -22,7 +22,7 @@ const AutocompleteBar: React.FC<AutocompleteBarProps> = ({
     useEffect(() => {
         const fetchSpecialties = async () => {
             try {
-                const response = await fetch(`${SERVER_HOST}:8000/especialidades`);
+                const response = await fetch(`${SERVER_HOST}/especialidades`);
                 if (!response.ok) {
                     throw new Error('Erro na resposta da API');
                 }

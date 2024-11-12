@@ -8,6 +8,7 @@ import { useTheme, useMediaQuery, SelectChangeEvent, Grid2, Pagination, MenuItem
 
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { SERVER_HOST } from '../constants';
 
 interface Facility {
   type: string;
@@ -60,7 +61,7 @@ const ListaDeUnidades: React.FC = () => {
       const servico = specialtyId ? specialtyId[0] : null;
       const classificacao = specialtyId ? specialtyId[1] : null;
 
-      const response = await fetch (` http://0.0.0.0:8000/unidades?cep=${cep}&srv=${servico}&clf=${classificacao}`);
+      const response = await fetch (`${SERVER_HOST}/unidades?cep=${cep}&srv=${servico}&clf=${classificacao}`);
       
       if (!response.ok) {
         throw new Error("Erro ao buscar unidades de saúde");

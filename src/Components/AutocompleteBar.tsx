@@ -2,6 +2,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 import React, { useEffect, useState } from 'react';
+import { SERVER_HOST } from '../constants';
 
 interface Specialty {
     label: string;
@@ -21,7 +22,7 @@ const AutocompleteBar: React.FC<AutocompleteBarProps> = ({
     useEffect(() => {
         const fetchSpecialties = async () => {
             try {
-                const response = await fetch('http://0.0.0.0:8000/especialidades');
+                const response = await fetch(`${SERVER_HOST}/especialidades`);
                 if (!response.ok) {
                     throw new Error('Erro na resposta da API');
                 }

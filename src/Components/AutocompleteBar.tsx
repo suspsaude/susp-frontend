@@ -9,12 +9,11 @@ interface Specialty {
 }
 
 interface AutocompleteBarProps {
-    specialty: string;
     onSpecialtyChange: (value: string, id: number[] | null) => void;
 }
 
 const AutocompleteBar: React.FC<AutocompleteBarProps> = ({ 
-    specialty, onSpecialtyChange 
+    onSpecialtyChange
 }) => {
     const [options, setOptions] = useState<Specialty[]>([]);
 
@@ -40,20 +39,20 @@ const AutocompleteBar: React.FC<AutocompleteBarProps> = ({
         };
         fetchSpecialties();
     },[]);
+
     return (
         <Autocomplete
             disablePortal
             
-            onChange={(event, newValue) => {
+            onChange={(_, newValue) => {
                 onSpecialtyChange(newValue ? newValue.label: "", newValue? newValue.id : null);
             }}
 
             options={options}       
         
-            //getOptionLabel={(option) => option.label}
             renderInput={(params) => ( 
                 <TextField 
-                    {...params} 
+                    {...params}
                     label="Especialidade"
                     variant='filled'
                     fullWidth

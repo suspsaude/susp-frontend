@@ -43,7 +43,7 @@ const ListaDeUnidades: React.FC = () => {
   };
 
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handlePageChange = (value: number) => {
     setCurrentPage(value);
   };
 
@@ -175,7 +175,7 @@ const ListaDeUnidades: React.FC = () => {
             <Pagination
               count={Math.ceil(sortedFacilities.length / facilitiesPerPage)}
               page={currentPage}
-              onChange={handlePageChange}
+              onChange={(_, value) => handlePageChange(value)}
               color="primary"
             />
           </Box>

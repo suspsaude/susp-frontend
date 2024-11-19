@@ -1,11 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-import { useEffect } from 'react';
-
-// Fixing Leaflet icon paths
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
 interface MapProps {
   latitude: number;
@@ -13,14 +7,6 @@ interface MapProps {
 }
 
 const MapComponent: React.FC<MapProps> = ({latitude, longitude}) => {
-
-  useEffect(() => {
-    delete (L.Icon.Default.prototype as any)._getIconUrl;
-    L.Icon.Default.mergeOptions({
-      iconUrl: markerIcon,
-      shadowUrl: markerShadow,
-    });
-  }, []);
 
   return (
     <MapContainer

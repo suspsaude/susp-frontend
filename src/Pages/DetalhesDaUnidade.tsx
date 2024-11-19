@@ -1,6 +1,7 @@
 import ToolBar from '../Components/ToolBar';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useTheme, useMediaQuery, Grid2} from '@mui/material';
 import MapComponent from '../Components/MapComponent';
@@ -9,6 +10,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import StarIcon from '@mui/icons-material/Star';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PeopleIcon from '@mui/icons-material/People';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import InfoCard from '../Components/InfoCard';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -158,6 +160,7 @@ const ListaDeUnidades: React.FC = () => {
                     icon={<LocalHospitalIcon fontSize="large" sx={{ color: '#4285f4' }} />}
                     title="Endereço"
                     details={facilityAddress}
+                    services={facilityDetails.services}        
                 />
 
                 {/* Contact Info */}
@@ -165,6 +168,7 @@ const ListaDeUnidades: React.FC = () => {
                     icon={<PhoneIcon fontSize="large" sx={{ color: '#4285f4' }} />}
                     title="Contato"
                     details={facilityContactInfo}
+                    services={facilityDetails.services}
                 />
 
                 {/* Operating Hours */}
@@ -172,8 +176,16 @@ const ListaDeUnidades: React.FC = () => {
                     icon={<AccessTimeIcon fontSize="large" sx={{ color: '#4285f4' }} />}
                     title="Horário de Funcionamento"
                     details={facilityDetails.shift}
+                    services={facilityDetails.services}
                 />
 
+
+                <InfoCard
+                    icon={<FormatListBulletedIcon fontSize="large" sx={{ color: '#4285f4' }} />}
+                    title="Lista de Especialidade"
+                    details={facilityDetails.name}
+                    services={facilityDetails.services}
+                />
                 </Grid2>
             </Grid2>
 

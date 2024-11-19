@@ -19,4 +19,7 @@ module.exports = {
     "index.tsx"
   ],
   //setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
+  moduleNameMapper: {
+    'src/constants': '<rootDir>/__mocks__/constants.ts'
+  }
 }

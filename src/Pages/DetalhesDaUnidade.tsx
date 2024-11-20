@@ -1,21 +1,20 @@
 import ToolBar from '../Components/ToolBar';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useTheme, useMediaQuery, Grid2} from '@mui/material';
 import MapComponent from '../Components/MapComponent';
 
 import PhoneIcon from '@mui/icons-material/Phone';
-import StarIcon from '@mui/icons-material/Star';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import PeopleIcon from '@mui/icons-material/People';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import InfoCard from '../Components/InfoCard';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+
+import { SERVER_HOST } from '../constants';
 
 interface FacilityDetails {
     cnes: number;
@@ -72,7 +71,7 @@ const ListaDeUnidades: React.FC = () => {
     
     const fetchFacitilyDetails = async () => {
         try {
-            const response = await fetch(`http://0.0.0.0:8000/unidades/detalhes?cnes=${cnesNumber}`);
+            const response = await fetch(`${SERVER_HOST}/unidades/detalhes?cnes=${cnesNumber}`);
 
             if (!response.ok) {
                 throw new Error("Erro ao buscar unidades de saúde");
@@ -84,13 +83,17 @@ const ListaDeUnidades: React.FC = () => {
             
 
         } catch(error) {
-            if (error instanceof TypeError) {
-                console.log("Erro de rede ou falha de conexão: ", error.message);
-              } else if (error instanceof SyntaxError) {
-                console.log("Erro ao processar dados JSON: ", error.message);
-              } else {
-                console.log("Erro inesperado: ", error.message);
-              }
+            if (error instanceof Error) {
+                if (error instanceof TypeError) {
+                    console.log("Erro de rede ou falha de conexão: ", error.message);
+                } else if (error instanceof SyntaxError) {
+                    console.log("Erro ao processar dados JSON: ", error.message);
+                } else {
+                    console.log("Erro inesperado: ", error.message);
+                }
+            } else {
+                console.log("Erro desconhecido");
+            }
         }
     }
 

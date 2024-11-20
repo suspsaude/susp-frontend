@@ -15,7 +15,7 @@ interface Facility {
   name: string;
   address: string;
   distance: number;
-  cness: number;
+  cnes: number;
 }
 
 const ListaDeUnidades: React.FC = () => {
@@ -37,9 +37,8 @@ const ListaDeUnidades: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const handleDetailsClick = async() => {
-    navigate('/detalhes');
-    
+  const handleDetailsClick = (cnesNumber: number) => {
+    navigate('/detalhes/', {state:{cnesNumber}});
   };
 
 
@@ -159,7 +158,7 @@ const ListaDeUnidades: React.FC = () => {
                     name={facility.name}
                     address={facility.address}
                     distance={facility.distance}
-                    onDetailsClick={handleDetailsClick}
+                    onDetailsClick={() => handleDetailsClick(facility.cnes)}
                   />
                 </Grid2>
               ))

@@ -15,7 +15,7 @@ interface Facility {
   name: string;
   address: string;
   distance: number;
-  cness: number;
+  cnes: number;
 }
 
 const ListaDeUnidades: React.FC = () => {
@@ -37,8 +37,8 @@ const ListaDeUnidades: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const handleDetailsClick = (cnesNumber: string) => {
-    navigate('/detalhes', {state:{cnesNumber}});
+  const handleDetailsClick = (cnesNumber: number) => {
+    navigate('/detalhes/', {state:{cnesNumber}});
   };
 
 

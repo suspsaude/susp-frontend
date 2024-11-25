@@ -12,8 +12,17 @@ const SearchForm = () => {
   const [zipCode, setZipCode] = useState<string>('');
   const [isZipCodeValid, setIsZipCodeValid] = useState<boolean>(false);
   const handleZipCodeChange = (value: string) => {
-    setZipCode(value);
-    setIsZipCodeValid(zipCodePattern.test(value));
+    const numericValue = value.replace(/\D/g, '');
+
+    const formattedValue =
+    numericValue.length > 5
+      ? `${numericValue.slice(0, 5)}-${numericValue.slice(5, 8)}`
+      : numericValue;
+
+    setZipCode(formattedValue);
+    
+    // Valida o CEP formatado
+    setIsZipCodeValid(zipCodePattern.test(formattedValue));
   };
   
   const [specialty, setSpecialty ] = useState<string>('');

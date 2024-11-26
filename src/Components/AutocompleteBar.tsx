@@ -33,6 +33,7 @@ const AutocompleteBar: React.FC<AutocompleteBarProps> = ({
                     label: item.name,
                     id: item.id
                 }));
+                console.log(specialties)
                 setOptions(specialties);
             } catch (error) {
                 console.error("Erro ao buscar especialidades: ", error);
@@ -43,23 +44,26 @@ const AutocompleteBar: React.FC<AutocompleteBarProps> = ({
 
     return (
         <Autocomplete
-            disablePortal
-            
-            onChange={(_, newValue) => {
-                onSpecialtyChange(newValue ? newValue.label: "", newValue? newValue.id : null);
-            }}
-
-            options={options}       
-        
-            renderInput={(params) => ( 
-                <TextField 
-                    {...params}
-                    label="Especialidade"
-                    variant='filled'
-                    fullWidth
-                />
-            )}  
-        />
+        disablePortal
+        onChange={(_, newValue) => {
+            onSpecialtyChange(newValue ? newValue.label : "", newValue ? newValue.id : null);
+        }}
+        options={options}
+        renderOption={(props, option) => (
+            <li {...props} style={{ textAlign: 'left' }}>
+                {option.label}
+            </li>
+        )}
+        renderInput={(params) => (
+            <TextField
+                {...params}
+                label="Especialidade"
+                variant="filled"
+                fullWidth
+            />
+        )}
+    />
+    
     );
 }
 

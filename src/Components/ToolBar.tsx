@@ -10,7 +10,8 @@ function ToolBar(){
         <Box sx={{ flexGrow: 1 }}>
             <AppBar>
                 <Toolbar sx={{justifyContent: 'space-between' }}>
-                    <LocalHospitalIcon fontSize="large"/>
+                    <Link to='/'><LocalHospitalIcon fontSize="large"/></Link>
+                    
                     <Box>
                         <Link to="/"><Button sx={{color:'#f5f5f5'}}>Início</Button></Link>
                     </Box>

@@ -6,3 +6,4 @@ yarn.lock
 apagar.tsx
 apagar.txt
 .env
+.env.prod

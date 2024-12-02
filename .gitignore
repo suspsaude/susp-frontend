@@ -2,7 +2,6 @@ node_modules/
 coverage/
 dist/
 .mise.local.toml
-yarn.lock
 apagar.tsx
 apagar.txt
 .env

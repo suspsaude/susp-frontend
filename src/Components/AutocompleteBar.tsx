@@ -2,7 +2,6 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 import React, { useEffect, useState } from 'react';
-import { SERVER_HOST } from '../constants';
 
 interface Specialty {
     label: string;
@@ -21,7 +20,16 @@ const AutocompleteBar: React.FC<AutocompleteBarProps> = ({
     useEffect(() => {
         const fetchSpecialties = async () => {
             try {
-                const response = await fetch(`${SERVER_HOST}/especialidades`);
+                const response = await fetch(`/api/especialidades`, {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Private-Network': 'true',
+                        'Access-Control-Allow-Methods': 'GET',
+                        'Content-Type': 'application/json'
+                    }
+                });
                 if (!response.ok) {
                     throw new Error('Erro na resposta da API');
                 }

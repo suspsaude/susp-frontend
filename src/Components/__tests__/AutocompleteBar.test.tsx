@@ -48,7 +48,16 @@ test('should render AutocompleteBar and fetch specialties', async () => {
     const input = screen.getByLabelText('Especialidade');
     expect(input).not.toBeNull();
 
-    expect(global.fetch).toHaveBeenCalledWith("http://localhost:8000/especialidades");
+    expect(global.fetch).toHaveBeenCalledWith("/api/especialidades", {
+      "headers": {
+        "Access-Control-Allow-Methods": "GET", 
+        "Access-Control-Allow-Origin": "*", 
+        "Access-Control-Allow-Private-Network": "true", 
+        "Content-Type": "application/json"
+      }, 
+      "method": "GET", 
+      "mode": "cors"
+    });
 
     const button = screen.getByLabelText('Open');
     expect(button).not.toBeNull();

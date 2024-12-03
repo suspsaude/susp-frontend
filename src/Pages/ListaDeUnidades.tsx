@@ -25,7 +25,6 @@ const ListaDeUnidades: React.FC = () => {
   const facilitiesPerPage = 3;
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedType, setSelectedType] = useState<string | ''>('');
-  const [sortCriteria, setSortCriteria] = useState<string | ''>('distance');
 
 
   const [facilities, setFacilities] = useState<Facility[]>([]);
@@ -47,10 +46,6 @@ const ListaDeUnidades: React.FC = () => {
 
   const handleTypeChange = (event: SelectChangeEvent<string>) => {
     setSelectedType(event.target.value as string);
-  };
-
-  const handleSortChange = (event: SelectChangeEvent<string>) => {
-    setSortCriteria(event.target.value as string);
   };
 
   const fetchFacilities = async (cep: string, specialtyId: number[] | null) => {

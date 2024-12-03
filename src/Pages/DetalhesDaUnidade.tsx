@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useTheme, useMediaQuery, Grid2} from '@mui/material';
 import MapComponent from '../Components/MapComponent';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import PhoneIcon from '@mui/icons-material/Phone';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';

@@ -149,6 +149,7 @@ const ListaDeUnidades: React.FC = () => {
                             <MapComponent 
                                 latitude={facilityDetails.latitude}
                                 longitude={facilityDetails.longitude}
+                                name={facilityDetails.name}
                             />
                             ) : (
                             <Typography>Loading map...</Typography>

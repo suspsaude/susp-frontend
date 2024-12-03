@@ -106,19 +106,6 @@ const ListaDeUnidades: React.FC = () => {
     );
   });
 
-  // Sorting Logic
-  const sortedFacilities = [...filteredFacilities].sort((a, b) => {
-    if (sortCriteria === 'distance') {
-      return a.distance - b.distance;
-    }
-    return 0;
-  });
-
-  const currentFacilities = sortedFacilities.slice(
-    (currentPage - 1) * facilitiesPerPage,
-    currentPage * facilitiesPerPage
-  );
-
   return (
     <>
       <ToolBar />
@@ -134,7 +121,7 @@ const ListaDeUnidades: React.FC = () => {
 
           {/* Filter and Sort Section */}
           <Grid2 container spacing={2} justifyContent="center" mb={4}>
-            <Grid2 size = {{xs: 12, sm: 6, md: 6}}>
+            <Grid2 size = {{xs: 12, sm: 12, md: 12}}>
               <FormControl fullWidth>
                 <InputLabel>Tipo de Estabelecimento</InputLabel>
                 <Select value={selectedType} onChange={handleTypeChange} label="Tipo de Estabelecimento">
@@ -146,21 +133,11 @@ const ListaDeUnidades: React.FC = () => {
                 
               </FormControl>
             </Grid2>
-
-            <Grid2 size = {{xs: 12, sm: 6, md: 6}}>
-              <FormControl fullWidth>
-                <InputLabel>Ordenar Por</InputLabel>
-                <Select value={sortCriteria} onChange={handleSortChange} label="Ordenar Por">
-                  <MenuItem value="distance">Distância</MenuItem>
-                  <MenuItem value="professionals">Número de Profissionais</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid2>
           </Grid2>
 
           <Grid2 container spacing={3} justifyContent="center" alignItems="center">
-            {currentFacilities.length > 0 ? (
-              currentFacilities.map((facility, index) => (
+            {filteredFacilities.length > 0 ? (
+              filteredFacilities.map((facility, index) => (
                 <Grid2 size={12} key={index}>
                   <UBSCard
                     name={facility.name}
@@ -180,7 +157,7 @@ const ListaDeUnidades: React.FC = () => {
           {/* Pagination Component */}
           <Box mt={4} display="flex" justifyContent="center">
             <Pagination
-              count={Math.ceil(sortedFacilities.length / facilitiesPerPage)}
+              count={Math.ceil(filteredFacilities.length / facilitiesPerPage)}
               page={currentPage}
               onChange={(_, value) => handlePageChange(value)}
               color="primary"

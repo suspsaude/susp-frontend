@@ -14,8 +14,6 @@ import { useLocation } from 'react-router-dom';
 
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 
-import { SERVER_HOST } from '../constants';
-
 interface FacilityDetails {
     cnes: number;
     name: string;
@@ -71,7 +69,16 @@ const ListaDeUnidades: React.FC = () => {
     
     const fetchFacitilyDetails = async () => {
         try {
-            const response = await fetch(`${SERVER_HOST}/unidades/detalhes?cnes=${cnesNumber}`);
+            const response = await fetch(`/api/unidades/detalhes?cnes=${cnesNumber}`, {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Private-Network': 'true',
+                    'Access-Control-Allow-Methods': 'GET',
+                    'Content-Type': 'application/json'
+                }
+            });
 
             if (!response.ok) {
                 throw new Error("Erro ao buscar unidades de saúde");

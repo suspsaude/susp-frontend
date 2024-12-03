@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useTheme, useMediaQuery, Grid2} from '@mui/material';
 import MapComponent from '../Components/MapComponent';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import PhoneIcon from '@mui/icons-material/Phone';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -148,8 +149,8 @@ const ListaDeUnidades: React.FC = () => {
                 </Typography>
 
             <Grid2 container spacing={2} justifyContent="center">
-                <Grid2 size = {{xs: 12, sm: 4, md: 6}}>
 
+                <Grid2 size = {{xs: 12, sm: 12, md: 6}}>
                     {/* Map component */}
                     <Box sx={{ marginTop: '1rem' }}>
                         {facilityDetails.latitude && facilityDetails.longitude ? (
@@ -164,7 +165,7 @@ const ListaDeUnidades: React.FC = () => {
                     </Box>
                 </Grid2>
 
-                <Grid2 size = {{xs: 12, sm: 6, md: 6}}>
+                <Grid2 size = {{xs: 12, sm: 12, md: 6}}>
 
                 {/* Address Info */}
                 <InfoCard

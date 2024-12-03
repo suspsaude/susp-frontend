@@ -101,6 +101,11 @@ const ListaDeUnidades: React.FC = () => {
     );
   });
 
+  const currentFacilities = filteredFacilities.slice(
+    (currentPage - 1) * facilitiesPerPage,
+    currentPage * facilitiesPerPage
+  );
+
   return (
     <>
       <ToolBar />
@@ -131,8 +136,8 @@ const ListaDeUnidades: React.FC = () => {
           </Grid2>
 
           <Grid2 container spacing={3} justifyContent="center" alignItems="center">
-            {filteredFacilities.length > 0 ? (
-              filteredFacilities.map((facility, index) => (
+            {currentFacilities.length > 0 ? (
+              currentFacilities.map((facility, index) => (
                 <Grid2 size={12} key={index}>
                   <UBSCard
                     name={facility.name}
